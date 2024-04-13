@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="test_robot">
+    <xacro:include filename="$(find bdrive_hardware_interface)/urdf/robot_controller.macro.xacro"/>
+    <xacro:include filename="$(find bdrive_hardware_interface)/urdf/robot_controller.ros2_control.xacro"/>
+
+    <link name="world" />
+
+    <xacro:robot_control_robot
+        name="test_robot"
+        prefix=""
+        parent="world"
+        >
+            <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robot_control_robot>
+
+    <xacro:robot_control_control
+        name="test_robot"
+        prefix=""
+        bus_config="$(find bdrive_hardware_interface)/config/bus.yaml"
+        can_interface_name="can0" />
+</robot>

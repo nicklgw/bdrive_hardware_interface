@@ -1,0 +1,22 @@
+options:
+  dcf_path: "@BUS_CONFIG_PATH@"
+
+master:
+  node_id: 1
+  driver: "ros2_canopen::MasterDriver"
+  package: "canopen_master_driver"
+  sync_period: 10000
+
+joint_1:
+  motor_type: 0 # 
+  node_id: 2
+  operation_mode: 1
+  profile_acc: 1000
+  profile_dec: 1000
+  max_speed: 3000
+  profile_speed: 1000
+  encoder_dpi: 10000
+  install_direction: 0
+  home_trigger: 0
+  en_profile_speed: 1
+  reduction_ratio: 1
