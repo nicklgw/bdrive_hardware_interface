@@ -313,20 +313,29 @@ hardware_interface::return_type BDriveHardwareInterface::perform_command_mode_sw
 
   for (size_t i = 0; i < info_.joints.size(); i++) 
   {
-    switch (control_level_[i]) 
-    {
-      case integration_level_t::UNDEFINED:
-        break;
+    // switch (control_level_[i]) 
+    // {
+    //   case integration_level_t::UNDEFINED:
+    //     break;
 
-      case integration_level_t::EFFORT:
-        break;
+    //   case integration_level_t::EFFORT:        
+    //     motor::SetOperationMode(node_id_[i], 1);
+    //     break;
 
-      case integration_level_t::VELOCITY:
-        break;
+    //   case integration_level_t::VELOCITY:
+    //     motor::SetOperationMode(node_id_[i], 2);
+    //     break;
 
-      case integration_level_t::POSITION:
-        break;
-    }
+    //   case integration_level_t::POSITION:
+    //     motor::SetOperationMode(node_id_[i], 3);
+    //     break;
+    // }
+
+    int node_id = node_id_[i];
+    int operation_mode = static_cast<int>(control_level_[i]);
+    int ret = motor::SetOperationMode(node_id, operation_mode);
+
+    RCLCPP_INFO(bdrive_hardware_interface_logger, "perform_command_mode_switch node_id: %d, operation_mode: %d, ret: %d", node_id, operation_mode, ret);
   }
 
   RCLCPP_INFO(bdrive_hardware_interface_logger, "perform_command_mode_switch");

@@ -45,4 +45,6 @@ int GetWorkMode(int node_id);       // 获取电机反馈工作模式
 int GetTargetSpeed(int node_id);    // 获取电机反馈目标速度
 int GetTargetTorque(int node_id);   // 获取电机反馈力矩
 
+int SetOperationMode(int node_id, int operation_mode);
+
 }

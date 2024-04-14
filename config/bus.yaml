@@ -10,7 +10,7 @@ master:
 joint_1:
   motor_type: 0 # 
   node_id: 2
-  operation_mode: 3
+  operation_mode: 1
   profile_acc: 200
   profile_dec: 200
   max_speed: 3000

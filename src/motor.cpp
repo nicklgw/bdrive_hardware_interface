@@ -553,4 +553,27 @@ int GetTargetTorque(int node_id)
 	return motor_info[index].torque;
 }
 
+int SetOperationMode(int node_id, int operation_mode) // UNDEFINED = 0, EFFORT = 1, VELOCITY = 2, POSITION = 3
+{
+	int ret = 0;
+
+	if (operation_mode == 1)
+	{
+		ret = MotorSetSingleStatus(node_id, MOTOR_MODE_TQ);
+	}
+	else if (operation_mode == 2)
+	{
+		ret = MotorSetSingleStatus(node_id, MOTOR_MODE_SPEED);
+	}
+	else if (operation_mode == 3)
+	{
+		ret = MotorSetSingleStatus(node_id, MOTOR_STU_RUN);
+	}
+
+	log_func(LOG_LEVEL_INFO, "SetOperationMode node_id: %d, operation_mode: %d", node_id, operation_mode);
+	printf("SetOperationMode node_id: %d, operation_mode: %d", node_id, operation_mode);
+
+	return ret;
+}
+
 }
