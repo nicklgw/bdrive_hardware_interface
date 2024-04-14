@@ -10,14 +10,6 @@ controller_manager:
     forward_position_controller:
       type: forward_command_controller/ForwardCommandController
 
-robot_controller:
-  ros__parameters:
-    joints:
-      - joint1
-      - joint2
-    operation_mode: 1
-    command_poll_freq: 5
-
 forward_velocity_controller:
   ros__parameters:
     joints:

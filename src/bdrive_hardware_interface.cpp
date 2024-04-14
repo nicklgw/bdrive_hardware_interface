@@ -108,8 +108,12 @@ hardware_interface::CallbackReturn BDriveHardwareInterface::on_configure(const r
     auto node_id = node_id_[i];
     auto& joint = info_.joints[i];
 
+    auto joint_node = std::make_shared<rclcpp::Node>(joint.parameters["device_name"]);
+    executor_->add_node(joint_node);
+  RCLCPP_INFO(bdrive_hardware_interface_logger, "device discovery topic: %s", topic_device_discovery.c_str());
+
     motor_devices_.emplace_back(std::make_unique<motor_device::MotorDevice>(
-      motor_device_node_, joint.name, "motor", ("rise-hw-id-" + std::to_string(i)), node_id))
+      joint_node, joint.name, "motor", ("rise-hw-id-" + std::to_string(i)), node_id))
     ->run_server(device_service_options);
   }
 
@@ -243,7 +247,7 @@ hardware_interface::return_type BDriveHardwareInterface::write(const rclcpp::Tim
         break;
     }
     
-    RCLCPP_DEBUG(rclcpp::get_logger("BDriveHardwareInterface"), 
+    RCLCPP_INFO_THROTTLE(bdrive_hardware_interface_logger, *motor_device_node_->get_clock(), std::chrono::milliseconds(1000).count(),
     "i: %ld, node_id: %d, control_level: %d, input_pos: %.3f, input_vel: %.3f", 
     i, node_id_[i], static_cast<int32_t>(control_level_[i]), input_pos, input_vel);
   }

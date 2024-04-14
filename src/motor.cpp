@@ -350,6 +350,13 @@ int Init(const MotorOption& option) // 电机初始化
 		sg_ini.node_info[i].en_profile_speed = motor.en_profile_speed;
 		sg_ini.node_info[i].reduction_ratio = motor.reduction_ratio;
 
+		sg_ini.node_info[i].fix_moving_acc = motor.profile_acc;
+		sg_ini.node_info[i].fix_moving_dec = motor.profile_dec;
+		sg_ini.node_info[i].fix_moving_spd = motor.max_speed;
+		sg_ini.node_info[i].fix_whirling_acc = motor.profile_acc;
+		sg_ini.node_info[i].fix_whirling_dec = motor.profile_dec;
+		sg_ini.node_info[i].fix_whirling_spd = motor.max_speed;
+
 		motors_info.motor[i].node_id = motor.node_id;
 		s_reduction_ratio[i] = motor.reduction_ratio;
 	}
@@ -556,22 +563,25 @@ int GetTargetTorque(int node_id)
 int SetOperationMode(int node_id, int operation_mode) // UNDEFINED = 0, EFFORT = 1, VELOCITY = 2, POSITION = 3
 {
 	int ret = 0;
+	int mode = 0;
 
 	if (operation_mode == 1)
 	{
-		ret = MotorSetSingleStatus(node_id, MOTOR_MODE_TQ);
+		mode = 4;
 	}
 	else if (operation_mode == 2)
 	{
-		ret = MotorSetSingleStatus(node_id, MOTOR_MODE_SPEED);
+		mode = 3;
 	}
 	else if (operation_mode == 3)
 	{
-		ret = MotorSetSingleStatus(node_id, MOTOR_STU_RUN);
+		mode = 1;
 	}
 
-	log_func(LOG_LEVEL_INFO, "SetOperationMode node_id: %d, operation_mode: %d", node_id, operation_mode);
-	printf("SetOperationMode node_id: %d, operation_mode: %d", node_id, operation_mode);
+	ret = MotorSetOperationMode(node_id, mode);
+
+	log_func(LOG_LEVEL_INFO, "SetOperationMode node_id: %d, operation_mode: %d, mode: %d, ret: %d", node_id, operation_mode, mode, ret);
+	printf("1SetOperationMode node_id: %d, operation_mode: %d, mode: %d, ret: %d", node_id, operation_mode, mode, ret);
 
 	return ret;
 }
