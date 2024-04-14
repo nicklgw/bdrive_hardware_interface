@@ -15,6 +15,12 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -Wno-implicit-fallthrough)
 endif()
 
+# 添加电机驱动库 
+list(APPEND CMAKE_PREFIX_PATH "/usr/local/bzl_robot/lib/cmake/motor-driver") 
+find_package(motor-driver REQUIRED) 
+include_directories(${motor-driver_INCLUDE_DIRS}) 
+link_libraries(${motor-driver_LIBRARIES}) 
+
 # find dependencies
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
@@ -29,6 +35,8 @@ ament_auto_add_library(
   ${PROJECT_NAME} SHARED
   src/bdrive_hardware_interface.cpp
   src/configuration_manager.cpp
+  src/motor.cpp
+  src/motor_device.cpp
 )
 
 pluginlib_export_plugin_description_file(hardware_interface bdrive_hardware_interface.xml)

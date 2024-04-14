@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include "rclcpp/logging.hpp"
 #include "motor_driver_adapter.h"
-#include "motor_device/motor.hpp"
+#include "bdrive_hardware_interface/motor.hpp"
 
 namespace motor
 {

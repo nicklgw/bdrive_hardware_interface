@@ -10,13 +10,13 @@ master:
 joint_1:
   motor_type: 0 # 
   node_id: 2
-  operation_mode: 1
-  profile_acc: 1000
-  profile_dec: 1000
+  operation_mode: 3
+  profile_acc: 200
+  profile_dec: 200
   max_speed: 3000
   profile_speed: 1000
   encoder_dpi: 10000
-  install_direction: 0
+  install_direction: 1
   home_trigger: 0
   en_profile_speed: 1
-  reduction_ratio: 1
+  reduction_ratio: 50
